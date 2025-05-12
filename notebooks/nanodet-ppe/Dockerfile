@@ -24,11 +24,9 @@ RUN pip install -U pip && \
     pip install --no-cache-dir \
         notebook \
         tensorflow~=2.14.0 \
-        torch~=1.13.1 \
+        torch~=2.5.0 \
         torchvision
         
 RUN jupyter notebook --generate-config        
 
-COPY *ipynb Makefile ./
-
-CMD make test-github
+COPY *ipynb ./
