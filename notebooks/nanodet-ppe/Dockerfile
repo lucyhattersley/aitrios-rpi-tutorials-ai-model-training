@@ -1,5 +1,5 @@
 #FROM tensorflow/tensorflow:2.14.0-jupyter
-FROM python:3.10-slim
+FROM python:3.11-slim
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -23,9 +23,12 @@ WORKDIR /tmp/tutorial
 RUN pip install -U pip && \
     pip install --no-cache-dir \
         notebook \
-        tensorflow~=2.14.0 \
+        tensorflow==2.15.1 \
         torch~=2.5.0 \
-        torchvision
+        torchvision \
+        imx500-converter[tf] \
+        "numpy<2.0" \
+        opencv-python
         
 RUN jupyter notebook --generate-config        
 
