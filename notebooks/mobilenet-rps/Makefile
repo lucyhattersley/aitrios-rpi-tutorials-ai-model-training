@@ -3,8 +3,8 @@ SRC := custom_mobilenet.ipynb
 CHECK_FILE := $(TESTDIR)/models/mobilenet-quant-rps.keras
 REPORT_FILE_NAME := executed_notebook.ipynb
 REPORT_FILE_PATH := $(TESTDIR)/$(REPORT_FILE_NAME)
-PORT := 127.0.0.1
-ALLOW_ROOT :=
+PORT := 0.0.0.0
+# ALLOW_ROOT :=
 
 SHELL := /bin/bash
 
@@ -14,7 +14,7 @@ docker-image:
 # Use to run notebook manually
 jupyter-local: docker-container-remove docker-image
 	docker run -it -d --name test-container --shm-size=1g -p 8888:8888 test-image bash
-	docker exec -it test-container bash -c "jupyter notebook --ip=$(PORT) $(ALLOW_ROOT) --no-browser --NotebookApp.token=''"
+	docker exec -it test-container bash -c "jupyter notebook --ip=$(PORT) --no-browser --NotebookApp.token='' --allow-root"
 
 # This is the test to run using github actions
 test-github:
