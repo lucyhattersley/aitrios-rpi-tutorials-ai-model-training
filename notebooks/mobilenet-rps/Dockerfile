@@ -1,9 +1,9 @@
 # stable Debian (bookworm) with Python 3.10 (works with TF 2.14 wheels)
 # Uncomment this for Raspberry Pi
-# FROM python:3.10-slim-bookworm
+FROM python:3.10-slim-bookworm
 
 # Uncomment this for X86_64 with GPU support
-FROM tensorflow/tensorflow:2.14.0-gpu# FROM python:3.10
+# FROM tensorflow/tensorflow:2.14.0-gpu# FROM python:3.10
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -27,6 +27,9 @@ RUN python -m pip install --no-cache-dir -U pip \
 ARG NB_USER=notebook
 ARG NB_UID=1000
 RUN useradd -m -s /bin/bash -u ${NB_UID} ${NB_USER}
+
+# Add .local/bin to PATH for user-installed packages
+ENV PATH="/home/${NB_USER}/.local/bin:${PATH}"
 
 # Make sure your workdir is owned by the user
 WORKDIR /tmp/tutorial
