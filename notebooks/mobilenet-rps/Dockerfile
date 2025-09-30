@@ -12,13 +12,16 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     ffmpeg libsm6 libxext6 \
     nano wget tree make \
-    default-jdk \
+    openjdk-17-jdk \
  && rm -rf /var/lib/apt/lists/*
 
 # Make sure pip installs to a PATH dir used by your 'docker exec' shell
 RUN python -m pip install --no-cache-dir -U pip \
  && python -m pip install --no-cache-dir \
     "tensorflow==2.14.0" \
+    model-compression-toolkit~=2.2.0 \
+    imx500-converter[tf] \ 
+    numpy==1.26.4 \
     tensorflow_datasets \
     jupyterlab notebook \
     opencv-python-headless
