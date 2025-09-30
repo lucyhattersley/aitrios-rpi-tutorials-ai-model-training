@@ -13,7 +13,7 @@ docker-image:
 
 # Use to run notebook manually
 jupyter-local: docker-container-remove docker-image
-	docker run -it -d --name test-container --shm-size=1g -p 8888:8888 test-image bash
+	docker run -it -d --name test-container --gpus all --shm-size=1g -p 8888:8888 test-image bash
 	docker exec -it test-container bash -c "jupyter notebook --ip=$(PORT) --no-browser --NotebookApp.token='' --allow-root"
 
 # This is the test to run using github actions
