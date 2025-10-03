@@ -15,12 +15,13 @@ RUN apt-get update && apt-get install -y \
     ffmpeg libsm6 libxext6 \
     nano wget tree make \
     openjdk-17-jdk \
+    cuda \
  && rm -rf /var/lib/apt/lists/*
 
 # Make sure pip installs to a PATH dir used by your 'docker exec' shell
 RUN python -m pip install --no-cache-dir -U pip \
  && python -m pip install --no-cache-dir \
-    "tensorflow==2.14.0" \
+    "tensorflow[gpu]==2.14.0" \
     model-compression-toolkit~=2.2.0 \
     imx500-converter[tf] \ 
     numpy==1.26.4 \
