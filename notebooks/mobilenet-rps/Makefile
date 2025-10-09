@@ -11,9 +11,9 @@ SHELL := /bin/bash
 docker-image:
 	docker build -t test-image .
 
-# Use to run notebook manually
+# Use to run notebook manually with GPU support
 jupyter-local: docker-container-remove docker-image
-	docker run -it -d --name test-container --gpus all --shm-size=1g -p 8888:8888 test-image bash
+	docker run -it -d --name test-container --gpus all --shm-size=1g -p 8888:8888 -e NVIDIA_VISIBLE_DEVICES=all test-image bash
 	docker exec -it test-container bash -c "jupyter notebook --ip=$(PORT) --no-browser --NotebookApp.token='' --allow-root"
 
 # This is the test to run using github actions

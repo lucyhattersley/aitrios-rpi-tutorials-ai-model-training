@@ -1,11 +1,5 @@
-# stable Debian (bookworm) with Python 3.10 (works with TF 2.14 wheels)
-# Uncomment this for Raspberry Pi
-# FROM python:3.10-slim-bookworm
-
-# Uncomment this for X86_64 with GPU support
-FROM tensorflow/tensorflow:2.14.0
-
-# FROM python:3.10
+# Use TensorFlow GPU image for NVIDIA GPU support
+FROM tensorflow/tensorflow:2.14.0-gpu
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -15,13 +9,12 @@ RUN apt-get update && apt-get install -y \
     ffmpeg libsm6 libxext6 \
     nano wget tree make \
     openjdk-17-jdk \
-    cuda \
  && rm -rf /var/lib/apt/lists/*
 
 # Make sure pip installs to a PATH dir used by your 'docker exec' shell
-RUN python -m pip install --no-cache-dir -U pip \
- && python -m pip install --no-cache-dir \
-    "tensorflow[gpu]==2.14.0" \
+RUN python -m pip install pip \
+ && python -m pip install \
+    "tensorflow==2.14.0" \
     model-compression-toolkit~=2.2.0 \
     imx500-converter[tf] \ 
     numpy==1.26.4 \
